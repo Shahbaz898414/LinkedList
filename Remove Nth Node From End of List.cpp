@@ -1,157 +1,133 @@
-#include <iostream>
+//{ Driver Code Starts
+#include <bits/stdc++.h>
 using namespace std;
 
-class ListNode
+struct Node
 {
-public:
-  int val;
-  ListNode *next;
+  char data;
+  struct Node *next;
 
-  // constructor
-  ListNode(int d)
+  Node(int x)
   {
-    val = d;
+    data = x;
     next = NULL;
   }
 };
 
-void insertAtHead(ListNode *&head, int val)
+void printlist(Node *head)
 {
-  ListNode *n = new ListNode(val);
-  n->next = head;
-  head = n;
-}
-void insertAtTail(ListNode *&head, int val)
-{
-  ListNode *n = new ListNode(val);
-
   if (head == NULL)
-  {
-    head = n;
     return;
-  }
-  ListNode *temp = head;
-  while (temp->next != NULL)
+  while (head != NULL)
   {
-    temp = temp->next;
-  }
-  temp->next = n;
-}
-
-void display(ListNode *head)
-{
-  ListNode *temp = head;
-  while (temp != NULL)
-  {
-    cout << temp->val << " ->";
-    temp = temp->next;
+    cout << head->data << " ";
+    head = head->next;
   }
   cout << endl;
 }
 
-ListNode *take_Input()
+void append(struct Node **headRef, char data)
 {
-  int d;
-  ListNode *head = NULL;
+  struct Node *new_node = new Node(data);
+  struct Node *last = *headRef;
 
-  while (cin >> d)
+  if (*headRef == NULL)
   {
-    insertAtHead(head, d);
-    //  insertAtTail(head,d);
-    // cin>>d;
+    *headRef = new_node;
+    return;
   }
-
-  return head;
+  while (last->next != NULL)
+    last = last->next;
+  last->next = new_node;
+  return;
 }
 
-ListNode *take_Input_file()
-{
-  int d;
-  cin >> d;
-  ListNode *head = NULL;
-
-  while (d != -1)
-  {
-    insertAtHead(head, d);
-    //  insertAtTail(head,d);
-    cin >> d;
-  }
-
-  return head;
-}
-// void operator<<(ostream &os,ListNode*head){
-//   display(head);
-//   return;
-// }
-
-ostream &operator<<(ostream &os, ListNode *head)
-{
-  display(head);
-  return os;
-}
-
-istream &operator>>(istream &is, ListNode *&head)
-{
-  head = take_Input_file();
-  return is;
-}
-
-class Solution
-{
-public:
-  ListNode *removeNthFromEnd(ListNode *head, int n)
-  {
-    struct ListNode *temp = head;
-
-    int len = 0;
-
-    while (temp != NULL)
-    {
-      temp = temp->next;
-      len++;
-    }
-
-    if (n > len)
-      return NULL;
-    
-
-    if (len - n == 0)
-    {
-      head = head->next;
-      return head;
-    }
-
-    struct ListNode *pre = head;
-
-    temp = head;
-
-    for (int i = 0; i < len - n; i++)
-    {
-      pre = temp;
-      temp = temp->next;
-    }
 
 
-    pre->next = temp->next;
+
+struct Node *removeNthFromEnd(Node *head,int n);
 
 
-    return head;
-  }
-};
+
+
+
+
+
+
 
 int main()
 {
+  int T;
+  cin >> T;
+  while (T--)
+  {
+    int n,k; char tmp;
+    struct Node *head = NULL;
+    cin >> n>>k;
+    while (n--) {
+      cin >> tmp;
+      append(&head, tmp);
+    }
 
-  // node* head=take_Input_file();
-  // node* head2=take_Input();
 
-  ListNode *head;
-  ListNode *head2;
-  cin >> head >> head2;
-  cout << head << head2;
+    head = removeNthFromEnd(head,k);
+    printlist(head);
 
-  // cout<<head;
-  // cout<<endl;
-  // cout<<head2;
+
+  }
+
   return 0;
+}
+
+
+
+
+
+
+
+
+Node *removeNthFromEnd(Node *head, int n) {
+
+
+  struct Node *temp = head;
+
+  int len = 0;
+
+  while (temp != NULL)
+  {
+    temp = temp->next;
+    len++;
+  }
+
+  if (n > len)
+  {
+    return NULL;
+  }
+
+  if (len - n == 0)
+  {
+    head = head->next;
+    return head;
+  }
+
+
+
+  struct Node *pre = head;
+
+  temp = head;
+
+
+  for (int i = 0; i < len - n; i++) {
+    pre = temp;
+    temp = temp->next;
+  }
+
+
+  pre->next = temp->next;
+
+
+  return head;
+
+
+
 }

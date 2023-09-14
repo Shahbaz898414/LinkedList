@@ -72,16 +72,15 @@ int main()
 struct Node* arrange(Node *head) {
    
    vector<char> a;
-
    Node *pre=head;
-
    int len=0;
 
    while(pre!=NULL){
     a.push_back(pre->data);
-
     pre=pre->next;
    }
+
+
 
    vector<char>  v;
    vector<char>  co;
@@ -95,24 +94,21 @@ struct Node* arrange(Node *head) {
       }
    }
 
+
+
    pre=head;
 
    int temp=0;
    int gem=0;
 
 
-
-
    while(pre!=NULL) {
     if(temp<v.size()) pre->data=v[temp++];
     else pre->data=co[gem++];
-    
 
     pre=pre->next;
    }
 
 
    return head;
-
-   
 }
