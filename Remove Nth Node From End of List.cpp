@@ -112,9 +112,8 @@ public:
     }
 
     if (n > len)
-    {
       return NULL;
-    }
+    
 
     if (len - n == 0)
     {
@@ -131,7 +130,11 @@ public:
       pre = temp;
       temp = temp->next;
     }
+
+
     pre->next = temp->next;
+
+
     return head;
   }
 };
